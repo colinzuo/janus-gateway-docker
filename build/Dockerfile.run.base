@@ -1,0 +1,30 @@
+FROM harbor.cloudminds.com/hari/harix-debian-10-slim:20201225
+
+ARG BUILD_DATE="undefined"
+ARG GIT_BRANCH="undefined"
+ARG GIT_COMMIT="undefined"
+ARG VERSION="undefined"
+
+LABEL build_date=${BUILD_DATE}
+LABEL git_branch=${GIT_BRANCH}
+LABEL git_commit=${GIT_COMMIT}
+LABEL version=${VERSION}
+
+RUN apt-get -y update && \
+	apt-get install -y \
+		libmicrohttpd12 \
+		libjansson4 \
+		libssl1.1 \
+		libsofia-sip-ua0 \
+		libglib2.0-0 \
+		libopus0 \
+		libogg0 \
+		libcurl4 \
+		liblua5.3-0 \
+		libconfig9 \
+		libusrsctp1 \
+		libwebsockets-dev \
+		libnanomsg5 \
+		librabbitmq4 && \
+	apt-get clean && \
+	rm -rf /var/lib/apt/lists/*

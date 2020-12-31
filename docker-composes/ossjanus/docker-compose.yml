@@ -1,0 +1,12 @@
+version: '3.1'
+
+services:
+  harix-auto-test-oss-janus:
+    image: harbor.cloudminds.com/hari/harix-auto-test-oss-janus:20201231
+    volumes:
+    - /home:/home
+    command:
+      - /bin/bash
+      - -c
+      - |
+        sleep 10000

@@ -1,0 +1,49 @@
+FROM harbor.cloudminds.com/hari/harix-debian-10-slim:20201225
+
+RUN apt-get -y update && \
+	apt-get install -y \
+		libmicrohttpd-dev \
+		libjansson-dev \
+		libssl-dev \
+		libsofia-sip-ua-dev \
+		libglib2.0-dev \
+		libopus-dev \
+		libogg-dev \
+		libcurl4-openssl-dev \
+		liblua5.3-dev \
+		libconfig-dev \
+		libusrsctp-dev \
+		libwebsockets-dev \
+		libnanomsg-dev \
+		librabbitmq-dev \
+		pkg-config \
+		gengetopt \
+		libtool \
+		automake \
+		build-essential \
+		wget \
+		git \
+		gtk-doc-tools && \
+	apt-get clean && \
+	rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app-base
+
+RUN wget https://github.com/cisco/libsrtp/archive/v2.3.0.tar.gz
+
+RUN git clone https://gitlab.freedesktop.org/libnice/libnice
+
+RUN git clone https://github.com/meetecho/janus-gateway
+
+RUN tar xfv v2.3.0.tar.gz && \
+	cd libsrtp-2.3.0 && \
+	./configure --prefix=/usr --enable-openssl && \
+	make shared_library && \
+	make install
+
+RUN cd libnice && \
+	git checkout 0.1.17 && \
+	./autogen.sh && \
+	./configure --prefix=/usr && \
+	make && \
+	make install
