@@ -1,10 +1,10 @@
 
-FROM harbor.cloudminds.com/hari/harix-auto-test-oss-janus-build-base:20201231 as build
+FROM harbor.cloudminds.com/hari/harix-auto-test-oss-janus-build-base:20210101 as build
 
 RUN cd janus-gateway && \
 	git checkout v0.10.4 && \
 	sh autogen.sh && \
-	./configure --prefix=/usr/local && \
+	./configure --prefix=/usr/local --enable-javascript-es-module=yes && \
 	make && \
 	make install && \
 	make configs

@@ -2,11 +2,16 @@ version: '3.1'
 
 services:
   harix-auto-test-oss-janus:
-    image: harbor.cloudminds.com/hari/harix-auto-test-oss-janus:20201231
+    image: harbor.cloudminds.com/hari/harix-auto-test-oss-janus:20210101
+    network_mode: host
     volumes:
-    - /home:/home
-    command:
-      - /bin/bash
-      - -c
-      - |
-        sleep 10000
+    - ./janus-configs:/usr/local/etc/janus
+    restart: always
+  web:
+    image: nginx:1.16.1
+    restart: always
+    ports:
+        - 10080:10080
+    volumes:
+        - ./html:/usr/share/nginx/html
+        - ./nginx-configs:/etc/nginx/conf.d

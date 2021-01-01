@@ -1,0 +1,11 @@
+general: {
+}
+
+rtsp-test: {
+	type = "rtsp"
+	id = 99
+	description = "RTSP Test"
+	audio = false
+	video = true
+	url = "rtsp://172.16.23.91:5028/behind"
+}
