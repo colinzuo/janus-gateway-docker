@@ -1,0 +1,18 @@
+FROM harbor.cloudminds.com/hari/harix-auto-test-ffmpeg-base:20210102 as build
+
+FROM ubuntu:18.04
+
+ENV LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64
+
+RUN     apt-get -yqq update && \
+        apt-get install -yq --no-install-recommends \
+        ca-certificates expat libgomp1 \
+        iputils-ping dnsutils vim procps && \
+        apt-get autoremove -y && \
+        apt-get clean -y
+
+WORKDIR /home/
+
+COPY --from=build /usr/local /usr/local/
+
+CMD ["/bin/bash", "-c", "trap : TERM INT; sleep infinity & wait"]

@@ -1,0 +1,12 @@
+version: '3.1'
+
+services:
+  harix-auto-test-ffmpeg-base:
+    image: harbor.cloudminds.com/hari/harix-auto-test-ffmpeg-base:20210102
+    volumes:
+    - /home:/home
+    command:
+      - /bin/bash
+      - -c
+      - |
+        sleep 10000

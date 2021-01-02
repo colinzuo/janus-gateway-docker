@@ -1,7 +1,9 @@
 #!/bin/bash
 private_register_name=$REGISTRY_HUB
+
 if [[ $private_register_name == "" ]]; then
-    private_register_name="harbor.cloudminds.com/hari"
+    echo "env REGISTRY_HUB not defined"
+    exit -1
 fi
 
 docker_image_name=harix-auto-test-oss-janus
